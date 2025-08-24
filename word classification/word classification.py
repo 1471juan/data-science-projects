@@ -8,7 +8,7 @@ from sklearn.model_selection import KFold
 alphabet = "abcdefghijklmnopqrstuvwxyzäö-"
 
 def load_finnish():
-    with open("data/words_finnish.txt", "r", encoding="utf-8") as f:
+    with open("word classification/data/words_finnish.txt", "r", encoding="utf-8") as f:
         text = f.read()
     # Remove quotes and whitespace, then split by commas
     words = [w.strip().strip('"') for w in text.split(",") if w.strip()]

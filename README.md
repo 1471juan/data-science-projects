@@ -1,7 +1,7 @@
-# Small Projects
+# Small machine learning projects
 These are exercises and small projects.
 
-# Word Classification
+# Words classification
 This is an Naive Bayes classification exercise from https://www.mooc.fi/en
 
 This project implements a machine learning model that classifies words as either Finnish or English.
