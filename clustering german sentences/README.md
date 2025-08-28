@@ -3,7 +3,7 @@
 The objective is to apply unsupervised learning to a dataset of German sentences and explore whether meaningful clusters can be visualized.
 
 ## Methodology
-- I gather the data from my own German studying sessions, the sentences are sorted  with the older sentences presented first.
+- I gathered data from my own German studying sessions. The sentences are sorted in ascending order(time).
 - I preprocessed said sentences into vectors. The vector counts the times a word appears in a sentence.
 - I Applied K-means clustering with 5 clusters
 - Then Evaluated clustering quality using the silhouette score
