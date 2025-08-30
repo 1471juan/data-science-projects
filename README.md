@@ -1,5 +1,13 @@
-# Small machine learning projects
-These are exercises and small projects.
+# Machine learning projects
+These are exercises and projects. A readme file containing the analysis/report is included where relevant.
+
+# Crime clarification analysis with Probit model
+Analyisis of crime reports in Uruguay and prediction of whether a case will be clarified using a Probit regression model.
+It includes data cleaning, exporatory analysis, and evaluation of the model performance.
+
+# Clustering German sentences
+This project applies unsupervised machine learning to a custom dataset of German sentences to explore semantic clustering. Using K-Means clustering, the goal was to group similar sentences based on vocabulary usage.
+To visualize and interpret clusters, Principal Component Analysis (PCA) was applied for dimenssion reduction. Clustering quality/accuracy was assessed using the silhouette score.
 
 # Words classification
 This is an Naive Bayes classification exercise from https://www.mooc.fi/en
@@ -8,6 +16,5 @@ This project implements a machine learning model that classifies words as either
 It reads word lists from files, processes them, and uses a Multinomial Naive Bayes classifier to predict the language of unseen words. 
 Cross-validation is used to evaluate the model's performance.
 
-# Clustering German sentences
-This project applies unsupervised machine learning to a custom dataset of German sentences to explore semantic clustering. Using K-Means clustering, the goal was to group similar sentences based on vocabulary usage.
-To visualize and interpret clusters, Principal Component Analysis (PCA) was applied for dimenssion reduction. Clustering quality/accuracy was assessed using the silhouette score.
+
+
