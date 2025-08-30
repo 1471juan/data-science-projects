@@ -1,7 +1,5 @@
 # Crime clarification analysis
-We'll analyze a dataset of crime reports in Uruguay and try to predict whether a case will be clarified using a Probit regression model.
-It includes data cleaning, exporatory analysis, and evaluation of the model performance.
-
+This project analyzes crime reports in Uruguay, aiming to predict whether a case will be clarified using Probit regression models and to interpret causal effects. It includes an exploratory stage, data cleaning, evaluation of the model's performance, and causal inference.
 
 # Data
 
@@ -45,22 +43,13 @@ The following are the columns of the dataset.
 
 `REL_VICT_AGRES`: Relationship with the victim.
 
-# Data exploration
-<img width="1920" height="975" alt="Figure_1" src="https://github.com/user-attachments/assets/1908050b-54da-4caa-a4e7-c437fb50a7f8" />
-<img width="1920" height="975" alt="Figure_2" src="https://github.com/user-attachments/assets/a9687fcc-73a7-42d0-a7b9-0b51cc1b4b24" />
-<img width="1920" height="975" alt="Figure_3" src="https://github.com/user-attachments/assets/6aa3edc4-3ffd-4d3f-babc-b00d09964aac" />
-<img width="1920" height="975" alt="Figure_4" src="https://github.com/user-attachments/assets/c60f5452-bb09-45ee-9eb6-37031bd63fb1" />
-<img width="1920" height="975" alt="Figure_5" src="https://github.com/user-attachments/assets/dc20b664-74d6-4bba-b600-9aba076f5728" />
-
-
-
 # Data processing
 
 The data set has the shape [4163 rows x 22 columns].
 
   
 
-First, I changed the date format to datetime64 type. Then I dropped the following columns: TRIMESTRE(the trimester), DIA_SEMANA(day of the week), HORA(hour), AÑO(year), because they can already be infered by the date. But left MES(month) for further analysis.
+First, I changed the date format to datetime64 type. Even though I dropped the following columns: TRIMESTRE(the trimester), DIA_SEMANA(day of the week), HORA(hour), AÑO(year), because they can already be infered by the date, I left MES(month) for further analysis.
 
   
 
@@ -76,7 +65,7 @@ Then, I converted several variables into dummies because we need categorical var
 
   
 However, there seems to be a multicollinearity problem when running the probit model. This might be because there are too many categories that have a value of 1 only when the case was clarified(after creating the dummies).
-In order to adress this, I merged all the 'department' variables except for the capital, because they had very few observations. Then dropped the column MENORESCINICIOPROC because it contained mostly NaN values.
+In order to adress this, I merged all the 'department' variables except for the capital(MONTEVIDEO), because they had very few observations. Then dropped the column MENORESCINICIOPROC because it contained mostly NaN values.
 I decided to drop the following columns due of quasi perfect correlatiton with ACLARADO: TIPO_A CLIENTE DE CAJERO / BANCO, TIPO_A TAXIS
 
 ## Model
@@ -133,7 +122,8 @@ All this metrics are based on the assumption that if the probability is higher t
 The accuracy of the model is 76.4% (0.7647)
 
 The following is the classification report:
-```              precision    recall  f1-score   support
+```
+              precision    recall  f1-score   support
 
            0       0.71      0.70      0.70       336
            1       0.80      0.81      0.80       497
@@ -157,7 +147,7 @@ The overall acuracy was 76% of all predictions, so 3 in 4 predictions are correc
 
 The F1 score is defined as F1score=2*(Precision*Recall)/(Precision+Recall)
 
-We have an average F1 score of 75%, which indicates a balance between minimizing false positives(Precision) and minimizing false negatives(recall). This can be infered from the formula above.
+The model has an average F1 score of 75%, which indicates a balance between minimizing false positives(Precision) and minimizing false negatives(recall). This can be infered from the formula above.
 
 
 # Marginal effects
@@ -236,19 +226,19 @@ DEPARTAMENTO_OTROS                                              0.1755      0.01
 ===============================================================================================================================
 ```
 
-Acording to (Wooldridge 2010), in order to interpretate the results of the Probit model, we need the marginal values. We can calculate them with the function `model.get_margeff(at='overall', method='dydx')` This returns the average marginal effect of the variable over the dependen variable(ACLARADO)
+Acording to (Wooldridge 2010), in order to interpretate the results of the Probit model, we need the marginal values. We can calculate them with the function `model.get_margeff(at='overall', method='dydx')` This returns the average marginal effect of the variable over the dependent variable(ACLARADO)
 
 - If the victim is a woman, the probability of the case being clarified increases on average by 7% (0.0706) with 95% confidence.
 
-- If the crime occurs on a familiy home, decreases the probability of the case being clarified on average by 20% (-0.1996) with 95% confidence.
+- If the crime occurs in a familiy home, the probability of the case being clarified decreases on average by 20% (-0.1996) with 95% confidence.
 
 - If the crime motive is a spontaneous conflict between individuales, the probability of the case being clarified increases on average by 32.5% (0.3255) with 99% confidence.
 
 - If the crime motive is domestic violence, the probability of the case being clarified increases on average by 35% (0.3580) with 99% confidence.
 
-- If the reported crime occurred outside of the capital, the probability of the case being clarified increases on average by 18 (0.1755) with 99% confidence.
+- If the reported crime occurred outside of the capital, the probability of the case being clarified increases on average by 18% (0.1755) with 99% confidence.
 
-- The age of the victim doesn't seem to play a role in whether the case is clarified or not. (the p-value is 0.231)
+- The age of the victim doesn't seem to play a role on whether the case is clarified or not. (the p-value is 0.231)
 
 
 
@@ -352,13 +342,22 @@ accuracy: 0.7623049219687875
 weighted avg       0.76      0.76      0.76       833
 ```
 
-The accuracy of the model is 0.762, and the precision, recall and F1-score metrics are nearly identical to the first model.
+The accuracy of this model is 0.762, and the precision, recall and therefore F1-score metrics are nearly identical to the first model.
 
 The marginal effects of the already discussed variables are very similar if not identical.
 
-- Female victims are on average 15.8% (0.1582) more likely to have their cases clarified compared to male victims, with 95% confidence. For male victims in domestic violence cases, the probability of clarification is simply the marginal effect of the domestic violence variable itself, that is on average an increase by 32.1% (0.3212) over the probability of case being clarified, with 99% confidence.
+- Female victims are on average 15.8% (0.1582) more likely to have their cases clarified compared to male victims, with 95% confidence. For male victims in domestic violence cases, the probability of clarification is simply the marginal effect of the domestic violence variable itself, that is an increase on average by 32.1% (0.3212) over the probability of case being clarified, with 99% confidence.
 - The effect of the squared victim's age term is significant with a p-value of 0.092 (at 10% significance) but the impact on the probability of the case being clarified is marginal.
 
 
 # Sources
 - Wooldridge, Jeffrey M.(2010) Introductory Econometrics, Fourth Edition
+
+# Annex
+<img width="500" height="254" alt="Figure_1" src="https://github.com/user-attachments/assets/808400ce-519f-484e-902c-040bc023c88f" />
+<img width="500" height="254" alt="Figure_2" src="https://github.com/user-attachments/assets/ff8698c3-dc92-4245-bfd4-f9ab82948cba" />
+<img width="500" height="254" alt="Figure_3" src="https://github.com/user-attachments/assets/005596ca-e38f-421c-a097-66ee6ec5cf71" />
+<img width="500" height="254" alt="Figure_4" src="https://github.com/user-attachments/assets/8373ade2-5b91-42aa-be3e-2e813fe7cf1f" />
+<img width="500" height="254" alt="Figure_5" src="https://github.com/user-attachments/assets/f38db72d-c121-48f7-90a6-d698d5c72ca2" />
+<img width="500" height="254" alt="Figure_6" src="https://github.com/user-attachments/assets/f2d1382a-b762-4298-b680-e9d0edf00f71" />
+<img width="500" height="254" alt="Figure_7" src="https://github.com/user-attachments/assets/c712a852-2aee-437f-8bad-8837cdd9896a" />
