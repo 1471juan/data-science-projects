@@ -354,10 +354,10 @@ The marginal effects of the already discussed variables are very similar if not 
 - Wooldridge, Jeffrey M.(2010) Introductory Econometrics, Fourth Edition
 
 # Annex
-<img width="500" height="254" alt="Figure_1" src="https://github.com/user-attachments/assets/808400ce-519f-484e-902c-040bc023c88f" />
-<img width="500" height="254" alt="Figure_2" src="https://github.com/user-attachments/assets/ff8698c3-dc92-4245-bfd4-f9ab82948cba" />
-<img width="500" height="254" alt="Figure_3" src="https://github.com/user-attachments/assets/005596ca-e38f-421c-a097-66ee6ec5cf71" />
-<img width="500" height="254" alt="Figure_4" src="https://github.com/user-attachments/assets/8373ade2-5b91-42aa-be3e-2e813fe7cf1f" />
-<img width="500" height="254" alt="Figure_5" src="https://github.com/user-attachments/assets/f38db72d-c121-48f7-90a6-d698d5c72ca2" />
-<img width="500" height="254" alt="Figure_6" src="https://github.com/user-attachments/assets/f2d1382a-b762-4298-b680-e9d0edf00f71" />
-<img width="500" height="254" alt="Figure_7" src="https://github.com/user-attachments/assets/c712a852-2aee-437f-8bad-8837cdd9896a" />
+<img width="500" height="254" alt="Figure_1" src="https://github.com/user-attachments/assets/61f844d1-be4f-47ee-bd87-7384e5c44e0a" />
+<img width="500" height="254" alt="Figure_2" src="https://github.com/user-attachments/assets/09709493-69cc-49c1-ab4e-d95df8b9206d" />
+<img width="500" height="254" alt="Figure_3" src="https://github.com/user-attachments/assets/2e848fca-b53a-41f0-964c-e857266edd42" />
+<img width="500" height="254" alt="Figure_4" src="https://github.com/user-attachments/assets/8d79b9af-4056-47a9-8dc3-86fc97e6362e" />
+<img width="500" height="254" alt="Figure_5" src="https://github.com/user-attachments/assets/b2bf5b8b-5a15-4c33-8f52-90b19282c54b" />
+<img width="500" height="254" alt="Figure_6" src="https://github.com/user-attachments/assets/ad04cf4b-6c08-4835-8e01-36140d8a8adf" />
+<img width="500" height="254" alt="Figure_7" src="https://github.com/user-attachments/assets/0eb2b3d4-f0a1-4cf5-9bf9-6a3050963002" />
