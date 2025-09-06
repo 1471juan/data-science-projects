@@ -6,7 +6,11 @@ Analyisis of crime reports in Uruguay and prediction of whether a case will be c
 It includes data cleaning, exporatory analysis, and evaluation of the model performance.
 
 # Wage and salary earnings multivariate linear regression
+<<<<<<< HEAD
 The objective of this project is to build a regression model that explains variations in wages across industries and demographics for the US, using a population survey. The project includes exploring the variables from tables with SQL, preparing the variables in a csv file, processing the data, evaluating the model and interpreting the coefficients.
+=======
+The objective of this project is to build a regression model that explains variations in wages across industries and demographics for the US, using a population survey. The project includes processing the dataset, evaluating the model and interpreting the coefficients.
+>>>>>>> 30ff11317fa36729dd97569205ec2244c51c52e1
 
 The results are that wages increase with age, education, hours worked, and in some industries. Women earn on average less than men, ceteris paribus. Being married, capital income, and better health are all associated with higher wages. Being foreign born(not US citizen), earning alternative income sources, poor health, larger households, and hourly work are associated with lower wage and salary earnings. Race doesn't seem to be significant.
 
