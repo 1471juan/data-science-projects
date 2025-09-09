@@ -14,8 +14,6 @@ It includes data cleaning, exporatory analysis, and evaluation of the model perf
 # Wage and salary earnings multivariate linear regression
 The objective of this project is to build a regression model that explains variations in wages across industries and demographics for the US, using a population survey. The project includes exploring the variables from tables with SQL, preparing the variables in a csv file, processing the data, evaluating the model and interpreting the coefficients.
 
-The results are that wages increase with age, education, hours worked, and in some industries. Women earn on average less than men, ceteris paribus. Being married, capital income, and better health are all associated with higher wages. Being foreign born(not US citizen), earning alternative income sources, poor health, larger households, and hourly work are associated with lower wage and salary earnings. Race doesn't seem to be significant.
-
 # Words classification
 This is an Naive Bayes classification exercise from https://www.mooc.fi/en
 
