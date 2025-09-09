@@ -3,11 +3,11 @@ import numpy as np
 
 def data_load(use_realgdp_squared=False):
     #LOAD DATA FROM CSV FILES
-    data_fossilConsumption = pd.read_csv('data/FossilConsumption.csv', parse_dates=['YEAR'])
-    data_population = pd.read_csv('data/TotalPopulation.csv', parse_dates=['YEAR'])
-    data_agr_va= pd.read_csv('data/Agriculture_forestry_fishing_value_added.csv', parse_dates=['YEAR'])
-    data_realgdp = pd.read_csv('data/real_gdp_uruguay.csv', parse_dates=['YEAR'])
-    data_totalghg = pd.read_csv('data/Total_GHG_emissions.csv', parse_dates=['YEAR'])
+    data_fossilConsumption = pd.read_csv('cointegration_and_kuznets_curve/data/FossilConsumption.csv', parse_dates=['YEAR'])
+    data_population = pd.read_csv('cointegration_and_kuznets_curve/data/TotalPopulation.csv', parse_dates=['YEAR'])
+    data_agr_va= pd.read_csv('cointegration_and_kuznets_curve/data/Agriculture_forestry_fishing_value_added.csv', parse_dates=['YEAR'])
+    data_realgdp = pd.read_csv('cointegration_and_kuznets_curve/data/real_gdp_uruguay.csv', parse_dates=['YEAR'])
+    data_totalghg = pd.read_csv('cointegration_and_kuznets_curve/data/Total_GHG_emissions.csv', parse_dates=['YEAR'])
 
     #DATAFRAME
     for dataframe in [data_fossilConsumption, data_agr_va, data_realgdp, data_totalghg, data_population]:

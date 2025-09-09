@@ -1,37 +1,107 @@
 # Economic-growth-emissions-and-energy-short-and-long-term-relationships-in-Uruguay-1984-2014-
-
 Test for the environmental Kuznets curve hypothesis, and cointegration analysis between real GDP per capita, GHG emissions per capita, Fossil fuel energy consumption and Agriculture, forestry, and fishing, value added in Uruguay between 1984 and 2014.
-
-## Introduction
-The objective of this analysis is to test for cointegration and build an error correction model. We'll be using the real GDP per capita, GHG emissions per capita, fossil fuel consumption and a variable that represents the agriculture and livestock sector due to their theoretical relevance and potential for cointegration. The chosen period is between 1984 and 2014. This period is selected because of the production matrix change of Uruguay after the dictatorship of the 70s and 80s debt crisis of 'la tablita', there was a clear turn from commodities production to services. Also, this period reflects, except for the 2002 crisis, a pretty stable economy, especially after the 90s with the price stabilization plan. There is an interest in the phase prior to the change of the energy production system to alternative renewable sources, namely biomass, wind power, and mini-hydro. In 2014, Uruguay had the most wind power capacity per capita in the world. In 2018, wind farms generated 40% of the total energy produced by the entire system in Uruguay.
-
-First we’ll test all four variables with an augmented dickey fuller unit root test, in order to check if they are stationary, then we'll run a Johansen cointegration test(we won't be using the Engle-Granger test because we are working with multiple variables) and use an error correction model(VECM) to analyze the dynamic short and long term relationship between the variables, making use of the impulse response functions to see the behaviour in face of external shocks of the other variables. Finally, we'll test the environmental Kuznets curve hypothesis for Uruguay by using the error correction model with the real GDP per capita as a quadratic and the GHG emissions per capita and evaluate whether Uruguay reached the turning point in the period, and then find the turning point value after which economic growth implicates lower pollution levels.
-
-Finding relevant variables is difficult, environmental information is not generally publicly available for developing countries like Uruguay. However, all of this time series were collected from https://data.worldbank.org/ as csv files. The series for Uruguay were separated into a different file with google sheets, and then imported into python with the pandas library. The ‘VALUE’ column will contain the time series and  the 'YEAR' column shows the corresponding year, which is used as an index to create a dataframe for the analysis; the result is 30 observations from the period 1984 to 2014.
-
-The Total GHG emissions and Total GDP were modified so they are in per capita terms, this was done by dividing them with the corresponding total Uruguay population for each year.
-
-## Variables
-All of the following series contained data from different countries with different periods. For this analysis, as described earlier, we’ll focus on Uruguay between 1984 and 2014.
-
-GDP (constant 2015 US$) Uruguay’s GDP, reported in constant 2015 US dollars, reflects the real value of all goods and services produced within its borders over time. This inflation-adjusted figure allows for accurate comparisons across years by neutralizing the effects of price changes. The indicator can be estimated through various approaches, expenditure, income, or production and serves as a foundational measure of the country’s economic activity.
-
-Fossil fuel energy consumption (% of total) Fossil fuel energy consumption data from 1960 to 2015, showing how dependent a country is on energy derived from coal, oil, and natural gas. This metric, expressed as a percentage of total energy use, originates from the International Energy Agency (IEA), a trusted authority in global energy statistics.
-
-Agriculture, forestry, and fishing, value added (% of GDP) The share of agriculture, forestry, and fishing in GDP measures the economic contribution of natural resource based activities. It includes crop cultivation, animal husbandry, timber harvesting, and fishing. By calculating value added, net output after subtracting intermediate consumption, this indicator reveals the structural composition of the economy and can signal shifts from rural-based to more industrial or service-oriented development.
-
-Total greenhouse gas emissions excluding LULUCF (Mt CO2e) Total greenhouse gas emissions(GHG), excluding those from land-use change and forestry (LULUCF), track the annual emissions of major gases like carbon dioxide, methane, and nitrous oxide, alongside industrial compounds. These are standardized to CO2 equivalent figures using IPCC conversion factors, allowing comparability. By turning the variable into per capita, it reflects the average environmental impact of individuals in a country, highlighting patterns in energy, waste, industrial, and agricultural emissions over time and being comparable to real GDP per capita.
 
 ## Augmented dickey fuller and Johansen cointegration tests
 In order to test for stationarity, we use the adfuller function from the statmodels library. By using an iterative process, we can test for a unit root, and if the series is not stationary, we differentiate it and try again until we reject the null hypothesis of stationarity. We can make use of visual tools to check for a constant mean in the series. After repeating this process with all the variables, we reach the conclusion that they are all integrated of order 1, meaning they have to be differentiated once in order to get stationarity. It is necessary that  all the variables have the same order of integration to move forward and test for cointegration.
 
+```
+totalghg
+ADF statistic           : -5.8497
+p-value             : 0.0000
+
+fossil
+ADF statistic           : -5.2729
+p-value             : 0.0000
+
+agr_va
+ADF statistic           : -5.2324
+p-value             : 0.0000
+
+realgdp
+ADF statistic           : -3.4017
+p-value             : 0.0109
+ 
+```
+
 The ADF test has shown that the data meets the criteria to be tested for cointegration, they all have the same integration order.
 
-For the cointegration test, we can use the coint_johansen function from the statsmodels library. The series will be tested on level, not with the differences applied. The trace statistic is greater than the critical value in this first hypothesis with 95% confidence. Specifically, for the null hypothesis that there are zero cointegrating relationships, the trace statistic value is 58.2007 which is greater than the critical value of 47.854, meaning we have enough statistical evidence to reject the null hypothesis of zero cointegrating equations in the model at 95% confidence level. The same can't be said for the remaining hypothesis, meaning we can't assure there is more than one cointegrating equation.
+For the cointegration test, we can use the coint_johansen function from the statsmodels library. The series will be tested on level, not with the differences applied. 
+```
+Statistic value: [58.20071374 23.23518361  9.97329324  1.4353072 ]
+Critical values (95%): [47.8545 29.7961 15.4943  3.8415]
+```
+The trace statistic is greater than the critical value in this first hypothesis with 95% confidence. Specifically, for the null hypothesis that there are zero cointegrating relationships, the trace statistic value is 58.2007 which is greater than the critical value of 47.8545, meaning we have enough statistical evidence to reject the null hypothesis of zero cointegrating equations in the model at 95% confidence level. The same can't be said for the remaining hypothesis, meaning we can't assure there is more than one cointegrating equation.
 
 The Johansen cointegration test shows that there is a unique cointegration relationship between the variables, meaning that despite the variables being individually non-stationary, there exists one stable, long-term equilibrium relationship among them. In other words, although the variables may fluctuate in the short term, they move together over time in a way that keeps a specific linear combination of them stable.
 
 ## Vector Error Correction Model(VECM)
+```
+Det. terms outside the coint. relation & lagged endog. parameters for equation totalgh
+===============================================================================
+                  coef    std err          z      P>|z|      [0.025      0.975]
+-------------------------------------------------------------------------------
+lin_trend       0.0076      0.002      4.169      0.000       0.004       0.011
+L1.totalghg    -0.0209      0.196     -0.106      0.915      -0.405       0.364
+L1.fossil       0.0791      0.132      0.597      0.550      -0.180       0.339
+L1.agr_va       0.0372      0.046      0.805      0.421      -0.053       0.128
+L1.realgdp      0.6242      0.158      3.950      0.000       0.314       0.934
+Det. terms outside the coint. relation & lagged endog. parameters for equation fossil
+===============================================================================
+                  coef    std err          z      P>|z|      [0.025      0.975]
+-------------------------------------------------------------------------------
+lin_trend       0.0120      0.004      2.978      0.003       0.004       0.020
+L1.totalghg    -0.6072      0.433     -1.401      0.161      -1.457       0.242
+L1.fossil       0.6291      0.292      2.151      0.031       0.056       1.202
+L1.agr_va       0.1235      0.102      1.207      0.227      -0.077       0.324
+L1.realgdp      1.4076      0.349      4.032      0.000       0.723       2.092
+Det. terms outside the coint. relation & lagged endog. parameters for equation agr_va
+===============================================================================
+                  coef    std err          z      P>|z|      [0.025      0.975]
+-------------------------------------------------------------------------------
+lin_trend       0.0148      0.006      2.649      0.008       0.004       0.026
+L1.totalghg     1.4458      0.598      2.417      0.016       0.273       2.618
+L1.fossil      -0.8332      0.404     -2.064      0.039      -1.624      -0.042
+L1.agr_va      -0.1842      0.141     -1.305      0.192      -0.461       0.092
+L1.realgdp     -0.6995      0.482     -1.452      0.146      -1.644       0.245
+Det. terms outside the coint. relation & lagged endog. parameters for equation realgdp
+===============================================================================
+                  coef    std err          z      P>|z|      [0.025      0.975]
+-------------------------------------------------------------------------------
+lin_trend       0.0037      0.002      1.691      0.091      -0.001       0.008
+L1.totalghg     0.1218      0.237      0.515      0.607      -0.342       0.586
+L1.fossil       0.1193      0.160      0.747      0.455      -0.194       0.432
+L1.agr_va      -0.0616      0.056     -1.104      0.270      -0.171       0.048
+L1.realgdp      0.5070      0.191      2.660      0.008       0.133       0.881
+              Loading coefficients (alpha) for equation totalghg
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ec1           -0.3173      0.072     -4.417      0.000      -0.458      -0.177
+               Loading coefficients (alpha) for equation fossil
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ec1           -0.5528      0.159     -3.483      0.000      -0.864      -0.242
+               Loading coefficients (alpha) for equation agr_va
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ec1           -0.5911      0.219     -2.699      0.007      -1.020      -0.162
+              Loading coefficients (alpha) for equation realgdp
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ec1           -0.1168      0.087     -1.347      0.178      -0.287       0.053
+          Cointegration relations for loading-coefficients-column 1
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+beta.1         1.0000          0          0      0.000       1.000       1.000
+beta.2         0.8236      0.187      4.394      0.000       0.456       1.191
+beta.3         0.2248      0.067      3.340      0.001       0.093       0.357
+beta.4         0.8660      0.091      9.497      0.000       0.687       1.045
+==============================================================================
+```
 The trend coefficient is significant at 95% confidence for all variables except for realgdp, which has a trend coefficient statistically significant at 90%
 
 We can proceed to interpret the short term effects for the fossil variable, its own past persists, a 1% increase of the fossil fuel energy consumption will increase 0.6291% in the next period with a 95% significance. An 1% increase of the real GDP per capita will lead to a positive 1.4076% change in the fossil fuel energy consumption, with a 99% confidence.
@@ -110,11 +180,9 @@ The results of the VECM model is that emissions increase with economic growth un
 <img width="1920" height="975" alt="ekcfigure" src="https://github.com/user-attachments/assets/f8ed10d1-8d5e-493c-812a-5a8821db2501" />
 
 ## Conclusion
-There is strong statistical evidence that Uruguay’s greenhouse gas emissions, fossil fuel energy use, agricultural sector output, and real GDP per capita share a long-term equilibrium relationship, despite their short-term fluctuations. The Johansen cointegration test confirms the existence of a unique cointegrating equation among the variables, allowing the use of a vector rrror correction model to explore both short and long term dynamics. The error correction model results reveal that fossil fuel consumption has the strongest long-term effect on GHG emissions, followed by agriculture, with real GDP per capita having the smallest but still positive influence. The error correction term suggests that the system adjusts toward long run equilibrium after shocks, with emissions, fossil use, and agriculture significantly participating in the adjustment process. Importantly, real GDP per capita is not statistically significant in the adjustment mechanism, indicating that economic growth alone does not immediately correct imbalances in the environmental system.
+There is strong statistical evidence that Uruguay’s greenhouse gas emissions, fossil fuel energy use, agricultural sector output, and real GDP per capita share a long-term equilibrium relationship, despite their short-term fluctuations. The Johansen cointegration test confirms the existence of a unique cointegrating equation among the variables, allowing the use of a vector error correction model to explore both short and long term dynamics. The error correction model results reveal that fossil fuel consumption has the strongest long-term effect on GHG emissions, followed by agriculture, with real GDP per capita having the smallest but still positive influence. The error correction term suggests that the system adjusts toward long run equilibrium after shocks, with emissions, fossil use, and agriculture significantly participating in the adjustment process. Importantly, real GDP per capita is not statistically significant in the adjustment mechanism, indicating that economic growth alone does not immediately correct imbalances in the environmental system.
 
-There is no evidence that emissions in Uruguay rise with income until a turning point, estimated at around US$22,449 per capita, after which further growth is expected to reduce emissions, since Uruguay had not yet reached this level during the period, and emissions continued to increase alongside economic growth. This conclusion should change if we take data from a longer period, because of the energy structure of Uruguay after 2014.
-
-While we did not directly test specific policy interventions, the data can provide direction. There is an urgency of reducing the use of fossil fuel consumption when looking to make economic growth policies. The positive long term relationship between agriculture and emissions suggests that sustainable practices in livestock and land use must be addressed, especially given Uruguay’s export structure, this could be done by incentivizing the use of natural pastures, but their returns are lower than the artificial ones, so more data is needed.
+The turning point given this data is estimated at around US$22,449 per capita, after which further growth is expected to reduce emissions. This value would change if we take more recent data.
 
 ## Data
 - Fossil fuel energy consumption (% of total) https://data360.worldbank.org/en/indicator/WB_ESG_EG_USE_COMM_FO_ZS?utm_source=chatgpt.com
