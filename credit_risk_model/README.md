@@ -65,6 +65,10 @@ weighted avg       0.78      0.78      0.74       200
 ```
 
 Which means 77.5% of all test samples were correctly classified, but we have to consider the balance of the sample. 140 obervations are non-risky, while 60 are risky, which might reduce the importance of the accuracy score interpretation. The model correctly identifies 96% of actual non-risky individuals and 33% of actual risky individuals. So naturally, the model is better predictinig non risky individuals.
+
+<img width="535" height="360" alt="fig1" src="https://github.com/user-attachments/assets/e984c184-e2ef-49fe-bace-9b6c55470c39" />
+
+
 # Other models
 
 ### Logit model 1
