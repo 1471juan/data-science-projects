@@ -26,7 +26,7 @@ Cross-validation is used to evaluate the model's performance.
 Test for the environmental Kuznets curve hypothesis, and cointegration analysis between real GDP per capita, GHG emissions per capita, Fossil fuel energy consumption and Agriculture, forestry, and fishing, value added in Uruguay between 1984 and 2014.
 
 # Credit risk prediction
-Simple credit risk prediction with logit regression, random forest and naive bayes classification, using German credit data.
+Simple credit risk prediction using logit regression, random forest and naive bayes classifier, using German credit data.
 
 # Clustering German sentences
 This project applies unsupervised machine learning to a custom dataset of German sentences to explore semantic clustering. Using K-Means clustering, the goal was to group similar sentences based on vocabulary usage.
