@@ -1,5 +1,4 @@
-# Economic-growth-emissions-and-energy-short-and-long-term-relationships-in-Uruguay-1984-2014-
-Test for the environmental Kuznets curve hypothesis, and cointegration analysis between real GDP per capita, GHG emissions per capita, Fossil fuel energy consumption and Agriculture, forestry, and fishing, value added in Uruguay between 1984 and 2014.
+Cointegration between real GDP per capita, GHG emissions per capita, Fossil fuel energy consumption and Agriculture, forestry, and fishing, value added in Uruguay between 1984 and 2014, and environmental Kuznets curve analysis.
 
 ## Augmented dickey fuller and Johansen cointegration tests
 In order to test for stationarity, we use the adfuller function from the statmodels library. By using an iterative process, we can test for a unit root, and if the series is not stationary, we differentiate it and try again until we reject the null hypothesis of stationarity. We can make use of visual tools to check for a constant mean in the series. After repeating this process with all the variables, we reach the conclusion that they are all integrated of order 1, meaning they have to be differentiated once in order to get stationarity. It is necessary that  all the variables have the same order of integration to move forward and test for cointegration.
