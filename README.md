@@ -5,6 +5,7 @@ These are exercises and projects. A readme file containing the analysis/report i
 - [Wage and salary earnings multivariate linear regression](wage_and_salary_earnings_model/)
 - [Word classification](word%20classification/)
 - [Cointegration analysis and environmental kuznets curve](cointegration_and_kuznets_curve)
+- [Credit risk prediction](credit_risk_model/)
 - [Clustering German sentences](clustering%20german%20sentences/)
 
 # Crime clarification analysis with Probit model
@@ -23,6 +24,9 @@ Cross-validation is used to evaluate the model's performance.
 
 # Cointegration analysis and environmental kuznets curve in Uruguay 1984-2014
 Test for the environmental Kuznets curve hypothesis, and cointegration analysis between real GDP per capita, GHG emissions per capita, Fossil fuel energy consumption and Agriculture, forestry, and fishing, value added in Uruguay between 1984 and 2014.
+
+# Credit risk prediction
+Simple credit risk prediction with logit regression, random forest and naive bayes classification, using German credit data.
 
 # Clustering German sentences
 This project applies unsupervised machine learning to a custom dataset of German sentences to explore semantic clustering. Using K-Means clustering, the goal was to group similar sentences based on vocabulary usage.
